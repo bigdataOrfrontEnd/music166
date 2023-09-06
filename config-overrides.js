@@ -1,5 +1,10 @@
-const CracoLessPlugin = require("craco-less");
+const { addWebpackAlias, override } = require("customize-cra");
 const path = require("path");
-const pathResolve = (pathUrl) => path.join(__dirname, pathUrl);
-
-module.exports = {};
+const resolve = (dir) => path.resolve(__dirname, dir);
+module.exports = {
+  webpack: override(
+    addWebpackAlias({
+      "@": resolve("./src"),
+    })
+  ),
+};
