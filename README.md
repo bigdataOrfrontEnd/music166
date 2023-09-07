@@ -18,3 +18,33 @@
 # 路由配置
 
 - discover
+
+# 函数式组件在ts中的定义过程
+
+```tsx
+import React from 'react'
+import type { ReactNode } from 'react'
+interface IProps {
+  children?: ReactNode
+  name?: string
+}
+const Discover: React.FC<IProps> = () => {
+  return <div>Discover</div>
+}
+export default Discover
+```
+
+第二种写法
+
+```tsx
+import React from 'react'
+import type { ReactNode } from 'react'
+interface IProps {
+  children?: ReactNode
+  name?: string
+}
+const Discover = (props: IProps) => {
+  return <div>{props.name}</div>
+}
+export default Discover
+```
