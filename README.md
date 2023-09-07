@@ -14,3 +14,7 @@
 - 集成 editcoconfig 配置----不同编辑器同一个风格
 - 使用 prettier 工具---不同人写的代码风格一样
 - 使用 ESLint 检测
+
+# 路由配置
+
+- discover
