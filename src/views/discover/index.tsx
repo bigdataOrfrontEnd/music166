@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { memo } from 'react'
 import type { ReactNode } from 'react'
+import './style.less'
 interface IProps {
   children?: ReactNode
   name?: string
 }
-const Discover = (props: IProps) => {
-  return <div>{props.name}</div>
+const Discover: React.FC<IProps> = () => {
+  return <div className="top">Discover</div>
 }
-export default Discover
+export default memo(Discover)
