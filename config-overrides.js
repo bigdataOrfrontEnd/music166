@@ -17,7 +17,7 @@ module.exports = {
         modifyVars: { '@primary-color': '#13c2c2' }
       }
     }),
-    // ↓加了这么个配置
+    // less配置
     adjustStyleLoaders(({ use: [, , postcss] }) => {
       const postcssOptions = postcss.options
       postcss.options = { postcssOptions }
