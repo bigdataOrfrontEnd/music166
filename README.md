@@ -48,3 +48,33 @@ const Discover = (props: IProps) => {
 }
 export default Discover
 ```
+
+# 使用 styled-components
+
+使用第三方库的话他的类型
+
+1. typescript内置DOM
+2. 库内部已经有了类型声明
+3. 自己写类型声明
+
+# 对于公共样式可以使用混入的方式去做
+
+1. 创建一个公用的theme
+
+```
+const theme={
+  mixin:{
+    wrapV1:{
+
+    }
+  }
+}
+```
+
+2. 在app中引入
+   import {ThemeProvider} from 'styled-components'
+   <ThemeProvider theme={theme}
+3. 使用
+   ${props=>props.theme.mixin.wrapv1}
+
+# 具体可见ambarb项目

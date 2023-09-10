@@ -2,13 +2,13 @@ import React, { memo } from 'react'
 
 import './style.less'
 const lists = [
-  '发现音乐',
-  '我的音乐',
-  '关注',
-  '商城',
-  '音乐人',
-  '云推歌',
-  '下载客户端'
+  { name: '发现音乐', to: '/discover' },
+  { name: '我的音乐', to: '/my' },
+  { name: '关注', to: '/focus' },
+  { name: '商城', to: '' },
+  { name: '音乐人', to: '' },
+  { name: '云推歌', to: '' },
+  { name: '下载客户端', to: '/download' }
 ]
 const Discover: React.FC = () => {
   return (
@@ -20,7 +20,7 @@ const Discover: React.FC = () => {
             {lists.map((item, index) => {
               return (
                 <li className="item" key={index}>
-                  {item}
+                  {item.name}
                 </li>
               )
             })}
