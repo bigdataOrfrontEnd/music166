@@ -29,9 +29,6 @@
           &:hover {
             background-color: black;
           }
-          a {
-            display: block;
-          }
         }
       }
     }
@@ -49,6 +46,13 @@
         padding-right: 20px;
         border-radius: 20px;
         background-color: #fff;
+        &::before {
+          content: '';
+          width: 18px;
+          height: 32px;
+          background: url('../../assets/img/topbar.png');
+          background-position: -6px -99px;
+        }
       }
       .input {
         border: none;
@@ -87,8 +91,4 @@
 h1 {
   margin: 0;
   padding: 0;
-}
-.active {
-  text-decoration: none;
-  background-color: #9b0909;
 }

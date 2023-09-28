@@ -1,9 +1,6 @@
 import React, { memo } from 'react'
 import { NavLink } from 'react-router-dom'
-import { UserOutlined } from '@ant-design/icons'
-import { Input } from 'antd'
-
-// import './style.less'
+import './style.less'
 type Item = {
   name: string
   to?: string
@@ -35,43 +32,42 @@ const showItem = (item: Item) => {
     )
   }
 }
-const Discover: React.FC = () => {
+const Download = () => {
   return (
-    <div className="top">
-      <div className="swarrp">
-        <div className="left">
-          <h1 className="logo">
-            <a href="#" className="logoItme">
-              网易云音乐
-            </a>
-          </h1>
-          <ul className="list">
-            {lists.map((item, index) => {
-              return (
-                <li className="item" key={index}>
-                  {showItem(item)}
-                </li>
-              )
-            })}
-          </ul>
-        </div>
-        <div className="right">
-          <div className="search">
-            <Input
-              size="large"
-              placeholder="large size"
-              prefix={<UserOutlined />}
-            />
+    <>
+      <div className="top">
+        <div className="swarrp">
+          <div className="left">
+            <h1 className="logo">
+              <a href="#" className="logoItme">
+                网易云音乐
+              </a>
+            </h1>
+            <ul className="list">
+              {lists.map((item, index) => {
+                return (
+                  <li className="item" key={index}>
+                    {showItem(item)}
+                  </li>
+                )
+              })}
+            </ul>
           </div>
-          <div className="cz">
-            <a href="">创作者中心</a>
-          </div>
-          <div className="peple">
-            <a href="#">登录</a>
+          <div className="right">
+            <div className="search">
+              <input type="search" className="input" />
+            </div>
+            <div className="cz">
+              <a href="">创作者中心</a>
+            </div>
+            <div className="peple">
+              <a href="#">登录</a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+      <div className="content"> </div>
+    </>
   )
 }
-export default memo(Discover)
+export default memo(Download)
