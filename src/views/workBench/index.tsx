@@ -14,9 +14,19 @@ import '/node_modules/react-resizable/css/styles.css'
 
 export default function WorkBench() {
   const [visible, setVisible] = useState(false)
+  const [curCardMenu, setCurCardMenu] = useState({} as any)
   const [isFullscreen, setIsFullscreen] = useState(false)
   const [cardLayouts, setCardLayouts] = useState({
-    lg: [{ i: 'A', x: 4, y: 5, w: 6, h: 15 }]
+    lg: [
+      {
+        w: 1,
+        h: 1,
+        minW: 1,
+        minH: 1,
+        i: 'ims/TaskBoad',
+        name: '任务看板'
+      }
+    ]
   })
   const [temLayouts, setTemLayouts] = useState({ lg: [] })
   const [globalValue, setGlobalValue] = useState({ name: 'lee' })
@@ -42,11 +52,30 @@ export default function WorkBench() {
   const onSave = () => {
     console.log('onSave')
   }
-  const onDrop = () => {
-    console.log('onDrop')
+  const onDrop = (layoutItem: any) => {
+    //拖拽停止后运行的
+
+    console.log('onDrop', layoutItem)
+    const newCardLayouts = cardLayouts.lg.concat({
+      ...layoutItem,
+      w: curCardMenu?.width,
+      h: curCardMenu?.height,
+      minW: curCardMenu?.width,
+      minH: curCardMenu?.height,
+      i: curCardMenu?.cardId,
+      name: curCardMenu?.cardName
+    })
+    setCardLayouts({ lg: newCardLayouts })
   }
   const onRemove = () => {
     console.log('onRemove')
+  }
+  const onDragStart = (card: any) => {
+    setDroppingItem({
+      w: card.width,
+      h: card.height
+    })
+    setCurCardMenu(card)
   }
   return (
     <div className={styles['workbench-layout']}>
@@ -66,23 +95,28 @@ export default function WorkBench() {
             <MenuFoldOutlined onClick={changeVisible} />
           )}
         </div>
+
+        <GridLayout
+          droppingItem={droppingItem}
+          isFullscreen={isFullscreen}
+          setIsFullscreen={setIsFullscreen}
+          onEdit={onEdit}
+          onSave={onSave}
+          onDrop={onDrop}
+          onRemove={onRemove}
+          visible={visible}
+          cardLayouts={cardLayouts}
+          setCardLayouts={setCardLayouts}
+          setTemLayouts={setTemLayouts}
+          isAdd={isAdd}
+          // {...layoutConfig}
+        />
       </div>
-      <GridLayout
-        droppingItem={droppingItem}
-        isFullscreen={isFullscreen}
-        setIsFullscreen={setIsFullscreen}
-        onEdit={onEdit}
-        onSave={onSave}
-        onDrop={onDrop}
-        onRemove={onRemove}
+      <MenuList
         visible={visible}
         cardLayouts={cardLayouts}
-        setCardLayouts={setCardLayouts}
-        setTemLayouts={setTemLayouts}
-        isAdd={isAdd}
-        // {...layoutConfig}
+        onDragStart={onDragStart}
       />
-      <MenuList visible={visible} cardLayouts={cardLayouts} />
     </div>
   )
 }

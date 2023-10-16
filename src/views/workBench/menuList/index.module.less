@@ -7,6 +7,11 @@
   transition: all 0.3s ease;
 }
 .menu-list-collapsed {
+  width: 0px;
+  .menu-item,
+  .menu-item-disable {
+    display: none;
+  }
 }
 .menu-item {
   width: 100%;
@@ -14,4 +19,23 @@
   background-color: rgb(255, 255, 255);
   margin-bottom: 10px;
   border: 1px solid #ddd;
+}
+.card-name {
+  color: #313131;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.card-description {
+  color: #313131;
+}
+.menu-item-disable {
+  width: 100%;
+  padding: 15px 20px;
+  cursor: not-allowed;
+  background-color: rgb(234, 234, 234);
+  margin-bottom: 10px;
+  .card-name {
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
 }

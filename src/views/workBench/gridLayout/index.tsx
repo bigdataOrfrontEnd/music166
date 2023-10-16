@@ -3,6 +3,7 @@ import { FullscreenExitOutlined, DeleteOutlined } from '@ant-design/icons'
 import { WidthProvider, Responsive } from 'react-grid-layout'
 import styles from './index.module.less'
 import { Row, Col } from 'antd'
+import Demo from '../demo'
 export default function GridLayout(props: any) {
   const {
     padding,
@@ -38,14 +39,11 @@ export default function GridLayout(props: any) {
             <DeleteOutlined />
           </div>
         </div>
-        <div className={styles['card-content']}>
-          {children}
-          111
-        </div>
+        <div className={styles['card-content']}>111</div>
       </div>
     )
   }
-  const onDragStop = () => {
+  const onDragStop = (layouts: any, oldItem: any, newItem: any) => {
     console.log('onDragStop')
   }
   const onLayoutChange = () => {
@@ -63,9 +61,11 @@ export default function GridLayout(props: any) {
         measureBeforeMount={false}
         breakpoints={{ lg: 600 }}
         isDroppable={true}
+        draggableHandle={'.MyDragHandleClassName'}
         onDragStop={onDragStop}
         // 压缩方向
         compactType="vertical"
+        // 当元素从外部放入网格时调用。
         onDrop={onDrop}
         // layout 是一个对象数组
         // 格式化为{x: number, y: number, w: number, h: number}
@@ -87,10 +87,10 @@ export default function GridLayout(props: any) {
         // 'nw' - Northwest handle (top-left)
         // 'se' - Southeast handle (bottom-right)
         // 'ne' - Northeast handle (top-right)
-        resizeHandle={['w', 'e']}
+        // resizeHandle={['w', 'e']}
         width={400}
       >
-        <div>111</div>
+        {cardLayouts.lg.map(renderItem)}
       </ResponsiveReactGridLayout>
     </div>
   )
