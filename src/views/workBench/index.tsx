@@ -17,16 +17,7 @@ export default function WorkBench() {
   const [curCardMenu, setCurCardMenu] = useState({} as any)
   const [isFullscreen, setIsFullscreen] = useState(false)
   const [cardLayouts, setCardLayouts] = useState({
-    lg: [
-      {
-        w: 1,
-        h: 1,
-        minW: 1,
-        minH: 1,
-        i: 'ims/TaskBoad',
-        name: '任务看板'
-      }
-    ]
+    lg: []
   })
   const [temLayouts, setTemLayouts] = useState({ lg: [] })
   const [globalValue, setGlobalValue] = useState({ name: 'lee' })
@@ -52,7 +43,7 @@ export default function WorkBench() {
   const onSave = () => {
     console.log('onSave')
   }
-  const onDrop = (layoutItem: any) => {
+  const onDrop = (layout: any, layoutItem: any) => {
     //拖拽停止后运行的
 
     console.log('onDrop', layoutItem)
@@ -65,6 +56,7 @@ export default function WorkBench() {
       i: curCardMenu?.cardId,
       name: curCardMenu?.cardName
     })
+    console.log('onDrop', layoutItem)
     setCardLayouts({ lg: newCardLayouts })
   }
   const onRemove = () => {

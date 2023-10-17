@@ -5,6 +5,9 @@
   "dependencies": {
     "@ant-design/icons": "^5.2.6",
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@huggingface/agents": "^0.0.5",
+    "@huggingface/hub": "^0.10.0",
+    "@huggingface/inference": "^2.6.4",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
