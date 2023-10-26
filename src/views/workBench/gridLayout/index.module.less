@@ -1,9 +1,11 @@
 .grid-layout {
   background-color: #f5f7fa;
-  overflow: auto;
+  overflow-x: hidden;
+  height: 100%;
+  width: calc(100% - 80px);
   :global {
     .react-grid-layout {
-      height: calc(100vh - 116px) !important;
+      height: 100vh !important;
     }
     .MyDragHandleClassName {
       height: 40px;
@@ -38,4 +40,13 @@
   & > span {
     margin-left: 8px;
   }
+}
+.MyDragHandleClassName {
+  height: 40px;
+  line-height: 40px;
+  padding: 0 8px;
+  width: 100%;
+  position: relative;
+  border-bottom: 1px solid #f5f5f5f5;
+  display: flex;
 }

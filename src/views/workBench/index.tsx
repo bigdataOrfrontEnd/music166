@@ -36,6 +36,7 @@ export default function WorkBench() {
   const changeVisible = () => {
     const flag = !visible
     setVisible(flag)
+    console.log(flag)
   }
   const onEdit = () => {
     console.log('编辑')
@@ -71,7 +72,7 @@ export default function WorkBench() {
   }
   return (
     <div className={styles['workbench-layout']}>
-      <div
+      {/* <div
         className={classNames({
           [styles['card-content']]: true,
           // visible
@@ -86,28 +87,34 @@ export default function WorkBench() {
           ) : (
             <MenuFoldOutlined onClick={changeVisible} />
           )}
-        </div>
+        </div> */}
 
-        <GridLayout
-          droppingItem={droppingItem}
-          isFullscreen={isFullscreen}
-          setIsFullscreen={setIsFullscreen}
-          onEdit={onEdit}
-          onSave={onSave}
-          onDrop={onDrop}
-          onRemove={onRemove}
-          visible={visible}
-          cardLayouts={cardLayouts}
-          setCardLayouts={setCardLayouts}
-          setTemLayouts={setTemLayouts}
-          isAdd={isAdd}
-          // {...layoutConfig}
-        />
+      <GridLayout
+        droppingItem={droppingItem}
+        isFullscreen={isFullscreen}
+        setIsFullscreen={setIsFullscreen}
+        onEdit={onEdit}
+        onSave={onSave}
+        onDrop={onDrop}
+        onRemove={onRemove}
+        visible={visible}
+        cardLayouts={cardLayouts}
+        setCardLayouts={setCardLayouts}
+        setTemLayouts={setTemLayouts}
+        isAdd={isAdd}
+        // {...layoutConfig}
+      />
+      {/* </div> */}
+      <div className={styles['list']}>
+        <div className={styles['carte']} onClick={changeVisible}>
+          <span>卡片库</span>
+        </div>
       </div>
       <MenuList
         visible={visible}
         cardLayouts={cardLayouts}
         onDragStart={onDragStart}
+        changeVisible={changeVisible}
       />
     </div>
   )

@@ -29,6 +29,7 @@ export default function GridLayout(props: any) {
   } = props
   const ResponsiveReactGridLayout = useMemo(() => WidthProvider(Responsive), [])
   const renderItem = (item: any) => {
+    console.log(item)
     const { i, children, name } = item
     return (
       <div className={styles['card-item']} key={i}>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import styles from './index.module.less'
 import classNames from 'classnames'
+import { CloseOutlined } from '@ant-design/icons'
 interface Props {
   visible?: boolean
   cardLayouts?: unknown
@@ -19,7 +20,7 @@ export default function MenuList(props: any) {
       roleName: '系统管理员',
       siteId: 'ims',
       status: 1,
-      with: 4
+      width: 4
     },
     {
       cardId: 'ims/InvestmentCalendar',
@@ -32,7 +33,7 @@ export default function MenuList(props: any) {
       roleName: '系统管理员',
       siteId: 'ims',
       status: 1,
-      with: 4
+      width: 4
     }
   ])
   return (
@@ -42,6 +43,14 @@ export default function MenuList(props: any) {
         [styles['menu-list-collapsed']]: !visible
       })}
     >
+      <div className={styles['box']}>
+        <div className={styles['title']}>卡片库</div>
+        <CloseOutlined
+          onClick={() => {
+            props.changeVisible()
+          }}
+        />
+      </div>
       {cardList?.map((item: any) => {
         return (
           <div
