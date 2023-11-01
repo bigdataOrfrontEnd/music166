@@ -66,11 +66,17 @@ export default function InvestMent() {
       </div>
     ) : null
   }
+  const onSelect = (value: Moment) => {
+    console.log(value)
+  }
   return (
     <div>
       <Calendar
         dateCellRender={dateCellRender}
         monthCellRender={monthCellRender}
+        onSelect={(e) => {
+          onSelect(e)
+        }}
       />
     </div>
   )
