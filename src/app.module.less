@@ -1,0 +1,47 @@
+.app-content {
+  height: 100%;
+  width: 100%;
+  background-color: rgba(217, 220, 222, 1);
+  //全局loading
+  .global-loading {
+    width: 64px;
+    height: 64px;
+    position: absolute;
+  }
+}
+.layout-main {
+  position: relative;
+  .layout-body {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: calc(100vh - 30px);
+    border: 1px solid #ddd;
+    .layout-sider {
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      height: 100%;
+      border-right: 1px solid #ddd;
+      background-color: rgba(10, 24, 45, 1);
+      &:hover {
+      }
+    }
+    .layout-container {
+      height: 100%;
+
+      overflow: hidden;
+    }
+  }
+  .layout-footer {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    height: 30px;
+    width: 100%;
+    line-height: 30px;
+  }
+}
+.layout-aside-collapse {
+}
