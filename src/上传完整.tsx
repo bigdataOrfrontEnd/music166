@@ -6,34 +6,53 @@ import { Button, message, Upload } from 'antd'
 const App: React.FC = () => {
   const [form] = Form.useForm()
   const [fileList, setFileList] = useState<any>([])
-  const [isImage, setIsImage] = useState(true)
+
   const props: UploadProps = {
+    onPreview: async (file) => {
+      console.log(file)
+      let src = file.url as string
+      if (!src) {
+        src = await new Promise((resolve) => {
+          const reader = new FileReader()
+          // reader.readAsDataURL(file.originFileObj as RcFile);
+          // reader.onload = () => resolve(reader.result as string);
+        })
+      }
+      // const image = new Image();
+      // image.src = src;
+      // const imgWindow = window.open(src);
+      // imgWindow?.document.write(image.outerHTML);
+    },
+
     name: 'file',
-    showUploadList: false,
+    listType: 'picture-card',
+    showUploadList: {
+      showPreviewIcon: false,
+      showRemoveIcon: false
+    },
+    onRemove: (file) => {
+      console.log(file)
+      setFileList([])
+    },
     fileList,
     accept: 'image/png, image/jpeg',
     customRequest: async ({ file }: any) => {
-      setIsImage(true)
-      console.log(file)
-      if (isImage) {
-        const base64 = await new Promise((resolve) => {
-          const fileRender = new FileReader()
-          fileRender.readAsDataURL(file)
-          fileRender.onload = () => {
-            resolve(fileRender.result)
-          }
-        })
-        if (base64) {
-          const val = {
-            file,
-            url: base64
-          }
-          setFileList([val])
-          form.setFieldValue('img', { file })
+      const base64 = await new Promise((resolve) => {
+        const fileRender = new FileReader()
+        fileRender.readAsDataURL(file)
+        fileRender.onload = () => {
+          resolve(fileRender.result)
         }
+      })
+      if (base64) {
+        const val = {
+          file,
+          url: base64
+        }
+        setFileList([val])
+        form.setFieldValue('img', { file })
       }
     },
-    // action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
     headers: {
       authorization: 'authorization-text'
     }
@@ -50,17 +69,8 @@ const App: React.FC = () => {
   return (
     <Form onFinish={handleSubmit} form={form} className="neededFormEle">
       <Form.Item label="img" name="img" validateTrigger={['onBlur']}>
-        <>
-          {fileList.map((file: any, index: any) => {
-            return isImage ? (
-              <Image src={file.url} key={index} />
-            ) : (
-              <span key={index}>暂无图片</span>
-            )
-          })}
-        </>
         <Upload {...props}>
-          <Button icon={<UploadOutlined />}>Click to Upload</Button>
+          <Button icon={<UploadOutlined />}></Button>
         </Upload>
       </Form.Item>
       <Form.Item label="name" name="name">

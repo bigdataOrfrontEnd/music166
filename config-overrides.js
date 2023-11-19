@@ -5,6 +5,8 @@ const {
   adjustStyleLoaders
 } = require('customize-cra')
 const path = require('path')
+const { ModuleFederationPlugin } = require('webpack').container
+const deps = require('./package.json').dependencies
 const resolve = (dir) => path.resolve(__dirname, dir)
 module.exports = {
   webpack: override(

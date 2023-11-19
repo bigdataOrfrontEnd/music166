@@ -5,28 +5,7 @@ import styles from './index.module.less'
 import { Row, Col } from 'antd'
 import Demo from '../demo'
 export default function GridLayout(props: any) {
-  const {
-    padding,
-    cols,
-    rowHeight,
-    // 配置一个可以拖拽的元素.拖拽的元素是一个"真实"元素
-    // 从外面拖拽一个元素进来的时候
-    // 你可以将更好的格式化参数
-    // i -- id
-    // w -- width
-    // h -- height
-    droppingItem,
-    onEdit,
-    onSave,
-    onDrop,
-    onRemove,
-    isFullscreen,
-    setIsFullscreen,
-    cardLayouts,
-    setCardLayouts,
-    setTemLayouts,
-    isAdd
-  } = props
+  const { padding, cols, rowHeight, onDrop, cardLayouts } = props
   const ResponsiveReactGridLayout = useMemo(() => WidthProvider(Responsive), [])
   const renderItem = (item: any) => {
     console.log(item)
@@ -56,13 +35,16 @@ export default function GridLayout(props: any) {
         //  items之间magin [x, y]单位默认px
         margin={padding}
         // 此布局的列数
-        cols={{ lg: 1 }}
+        cols={{ lg: cols }}
         //// 行高有一个默认高度,但是你可以改变他在断点处
         rowHeight={rowHeight}
         measureBeforeMount={false}
         breakpoints={{ lg: 600 }}
+        // 设置为 true，用户可以从外部拖拽项到网格中。
+        // 当设置为 true 时，你还需要提供 onDrop 属性来处理拖拽项被放置到网格中的情况。
+        //要配合onDrop使用
         isDroppable={true}
-        draggableHandle={'.MyDragHandleClassName'}
+        draggableHandle={`.${styles['MyDragHandleClassName']}`}
         onDragStop={onDragStop}
         // 压缩方向
         compactType="vertical"
@@ -89,10 +71,14 @@ export default function GridLayout(props: any) {
         // 'se' - Southeast handle (bottom-right)
         // 'ne' - Northeast handle (top-right)
         // resizeHandle={['w', 'e']}
-        width={400}
       >
         {cardLayouts.lg.map(renderItem)}
       </ResponsiveReactGridLayout>
     </div>
   )
+}
+GridLayout.defaultProps = {
+  padding: [16, 16],
+  cols: 12,
+  rowHeight: 36
 }

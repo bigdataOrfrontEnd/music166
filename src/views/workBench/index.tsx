@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import GridLayout from './gridLayout'
 import MenuList from './menuList'
 import classNames from 'classnames'
+import axios from 'axios'
 import {
   SaveOutlined,
   SyncOutlined,
@@ -15,24 +16,23 @@ import '/node_modules/react-resizable/css/styles.css'
 export default function WorkBench() {
   const [visible, setVisible] = useState(false)
   const [curCardMenu, setCurCardMenu] = useState({} as any)
-  const [isFullscreen, setIsFullscreen] = useState(false)
   const [cardLayouts, setCardLayouts] = useState({
     lg: []
   })
-  const [temLayouts, setTemLayouts] = useState({ lg: [] })
-  const [globalValue, setGlobalValue] = useState({ name: 'lee' })
-  const [isAdd, setIsAdd] = useState(false)
-  const [originLayouts, setOriginLayouts] = useState({ lg: [] })
-  const [droppingItem, setDroppingItem] = useState({
-    h: 4,
-    w: 1
-  })
-  const hanleSave = () => {
-    console.log('lll')
-  }
-  const handleReload = () => {
-    console.log('sddd')
-  }
+  const [cardList, setCardList] = useState([])
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:8080/workbetn')
+      .then((response) => {
+        setCardList(response.data.list)
+        console.log(response.data)
+      })
+      .catch((error) => {
+        console.error(error)
+      })
+  }, [])
+
   const changeVisible = () => {
     const flag = !visible
     setVisible(flag)
@@ -46,8 +46,7 @@ export default function WorkBench() {
   }
   const onDrop = (layout: any, layoutItem: any) => {
     //拖拽停止后运行的
-
-    console.log('onDrop', layoutItem)
+    console.log('onDrop未＋hee', layoutItem)
     const newCardLayouts = cardLayouts.lg.concat({
       ...layoutItem,
       w: curCardMenu?.width,
@@ -57,42 +56,17 @@ export default function WorkBench() {
       i: curCardMenu?.cardId,
       name: curCardMenu?.cardName
     })
-    console.log('onDrop', layoutItem)
     setCardLayouts({ lg: newCardLayouts })
   }
   const onRemove = () => {
     console.log('onRemove')
   }
   const onDragStart = (card: any) => {
-    setDroppingItem({
-      w: card.width,
-      h: card.height
-    })
     setCurCardMenu(card)
   }
   return (
     <div className={styles['workbench-layout']}>
-      {/* <div
-        className={classNames({
-          [styles['card-content']]: true,
-          // visible
-          [styles['card-content-collapsed']]: visible
-        })}
-      >
-        <div className={styles['tool-icon-wrap']}>
-          <SaveOutlined onClick={hanleSave} />
-          <SyncOutlined onClick={handleReload} />
-          {visible ? (
-            <MenuUnfoldOutlined onClick={changeVisible} />
-          ) : (
-            <MenuFoldOutlined onClick={changeVisible} />
-          )}
-        </div> */}
-
       <GridLayout
-        droppingItem={droppingItem}
-        isFullscreen={isFullscreen}
-        setIsFullscreen={setIsFullscreen}
         onEdit={onEdit}
         onSave={onSave}
         onDrop={onDrop}
@@ -100,11 +74,7 @@ export default function WorkBench() {
         visible={visible}
         cardLayouts={cardLayouts}
         setCardLayouts={setCardLayouts}
-        setTemLayouts={setTemLayouts}
-        isAdd={isAdd}
-        // {...layoutConfig}
       />
-      {/* </div> */}
       <div className={styles['list']}>
         <div className={styles['carte']} onClick={changeVisible}>
           <span>卡片库</span>
@@ -112,6 +82,7 @@ export default function WorkBench() {
       </div>
       <MenuList
         visible={visible}
+        cardList={cardList}
         cardLayouts={cardLayouts}
         onDragStart={onDragStart}
         changeVisible={changeVisible}
