@@ -54,7 +54,8 @@ export default function WorkBench() {
       minW: curCardMenu?.width,
       minH: curCardMenu?.height,
       i: curCardMenu?.cardId,
-      name: curCardMenu?.cardName
+      name: curCardMenu?.cardName,
+      hee: 'hhhh'
     })
     setCardLayouts({ lg: newCardLayouts })
   }
