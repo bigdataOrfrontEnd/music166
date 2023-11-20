@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './index.module.less'
 import classNames from 'classnames'
 import { CloseOutlined } from '@ant-design/icons'
@@ -8,7 +8,7 @@ interface OpenList {
   [key: string]: boolean
 }
 export default function MenuList(props: any) {
-  const { visible, onDragStart, cardList } = props
+  const { visible, onDragStart, cardList, cardLayouts } = props
   const [openList, setOpenList] = useState<OpenList>({})
   return (
     <div
@@ -27,6 +27,13 @@ export default function MenuList(props: any) {
       </div>
 
       {cardList?.map((item: any) => {
+        console.log(cardLayouts)
+
+        const disabledDrag = cardLayouts.lg.findIndex(
+          (I: any) => I.i === item.cardId
+        )
+        console.log(disabledDrag)
+
         return (
           <Popover
             key={item.id}
@@ -42,7 +49,7 @@ export default function MenuList(props: any) {
               onMouseEnter={() => {
                 console.log('运行事件')
                 const newOpenList = cloneDeep(openList)
-                console.log(newOpenList)
+                // console.log(newOpenList)
                 for (const [key] of Object.entries(newOpenList)) {
                   newOpenList[key] = false
                 }
@@ -53,7 +60,7 @@ export default function MenuList(props: any) {
               onMouseLeave={() => {
                 console.log('运行时间')
                 const newOpenList = cloneDeep(openList)
-                console.log(newOpenList)
+                // console.log(newOpenList)
                 for (const [key] of Object.entries(newOpenList)) {
                   newOpenList[key] = false
                 }

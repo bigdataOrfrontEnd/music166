@@ -2,32 +2,32 @@ import React, { useMemo } from 'react'
 import { FullscreenExitOutlined, DeleteOutlined } from '@ant-design/icons'
 import { WidthProvider, Responsive } from 'react-grid-layout'
 import styles from './index.module.less'
-import { Row, Col } from 'antd'
-import Demo from '../demo'
+import MyCalen from '@/views/Calendar'
+
 export default function GridLayout(props: any) {
-  const { padding, cols, rowHeight, onDrop, cardLayouts } = props
+  const { padding, cols, rowHeight, onDrop, cardLayouts, onRemove } = props
   const ResponsiveReactGridLayout = useMemo(() => WidthProvider(Responsive), [])
   const renderItem = (item: any) => {
-    console.log(item)
-    const { i, children, name } = item
+    console.log('执行', item)
+    const { i, name } = item
     return (
       <div className={styles['card-item']} key={i}>
         <div className={styles['MyDragHandleClassName']}>
           <div className={styles['title']}>{name}</div>
           <div className={styles['actions']}>
             <FullscreenExitOutlined />
-            <DeleteOutlined />
+            <DeleteOutlined onClick={() => onRemove(i)} />
           </div>
         </div>
-        <div className={styles['card-content']}>111</div>
+        <div className={styles['card-content']}>1111</div>
       </div>
     )
   }
-  const onDragStop = (layouts: any, oldItem: any, newItem: any) => {
-    console.log('onDragStop')
-  }
-  const onLayoutChange = () => {
-    console.log('onLayoutChange')
+  // const onDragStop = (layouts: any, oldItem: any, newItem: any) => {
+  //   console.log('onDragStop')
+  // }
+  const onLayoutChange = (layout: any) => {
+    console.log('onLayoutChange', layout)
   }
   return (
     <div className={styles['grid-layout']}>
@@ -45,7 +45,7 @@ export default function GridLayout(props: any) {
         //要配合onDrop使用
         isDroppable={true}
         draggableHandle={`.${styles['MyDragHandleClassName']}`}
-        onDragStop={onDragStop}
+        // onDragStop={onDragStop}
         // 压缩方向
         compactType="vertical"
         // 当元素从外部放入网格时调用。

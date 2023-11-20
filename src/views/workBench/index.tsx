@@ -1,14 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import GridLayout from './gridLayout'
 import MenuList from './menuList'
-import classNames from 'classnames'
 import axios from 'axios'
-import {
-  SaveOutlined,
-  SyncOutlined,
-  MenuUnfoldOutlined,
-  MenuFoldOutlined
-} from '@ant-design/icons'
 import styles from './index.module.less'
 import '/node_modules/react-grid-layout/css/styles.css'
 import '/node_modules/react-resizable/css/styles.css'
@@ -38,12 +31,7 @@ export default function WorkBench() {
     setVisible(flag)
     console.log(flag)
   }
-  const onEdit = () => {
-    console.log('编辑')
-  }
-  const onSave = () => {
-    console.log('onSave')
-  }
+
   const onDrop = (layout: any, layoutItem: any) => {
     //拖拽停止后运行的
     console.log('onDrop未＋hee', layoutItem)
@@ -54,13 +42,13 @@ export default function WorkBench() {
       minW: curCardMenu?.width,
       minH: curCardMenu?.height,
       i: curCardMenu?.cardId,
-      name: curCardMenu?.cardName,
-      hee: 'hhhh'
+      name: curCardMenu?.cardName
     })
     setCardLayouts({ lg: newCardLayouts })
   }
-  const onRemove = () => {
-    console.log('onRemove')
+  const onRemove = (id: any) => {
+    const newCardLayouts = cardLayouts.lg.filter((item: any) => item.i !== id)
+    setCardLayouts({ lg: newCardLayouts })
   }
   const onDragStart = (card: any) => {
     setCurCardMenu(card)
@@ -68,8 +56,6 @@ export default function WorkBench() {
   return (
     <div className={styles['workbench-layout']}>
       <GridLayout
-        onEdit={onEdit}
-        onSave={onSave}
         onDrop={onDrop}
         onRemove={onRemove}
         visible={visible}
