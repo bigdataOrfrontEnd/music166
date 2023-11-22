@@ -1,38 +1,37 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Form, Input, InputNumber, Upload, Radio, Button } from 'antd'
-export default function CardForm({ form, initData }: any) {
-  console.log(initData)
+export default function CardForm({ form, initData, operation }: any) {
+  useEffect(() => {
+    const values = { ...initData }
+    if (operation === 'update') {
+      setFileList(values.previewPicture ? [values.previewPicture] : [])
+      form.setFieldsValue({ ...initData })
+    }
+  }, [operation])
 
-  form.setFieldsValue({ ...initData })
   const [fileList, setFileList] = useState<any>([])
-  const [isImage, setIsImage] = useState(true)
   const props: any = {
+    listType: 'picture-card',
     name: 'file',
-    showUploadList: false,
     fileList,
     accept: 'image/png, image/jpeg',
     customRequest: async ({ file }: any) => {
-      setIsImage(true)
-      console.log(file)
-      if (isImage) {
-        const base64 = await new Promise((resolve) => {
-          const fileRender = new FileReader()
-          fileRender.readAsDataURL(file)
-          fileRender.onload = () => {
-            resolve(fileRender.result)
-          }
-        })
-        if (base64) {
-          const val = {
-            file,
-            url: base64
-          }
-          setFileList([val])
-          form.setFieldValue('img', { file })
+      const base64 = await new Promise((resolve) => {
+        const fileRender = new FileReader()
+        fileRender.readAsDataURL(file)
+        fileRender.onload = () => {
+          resolve(fileRender.result)
         }
+      })
+      if (base64) {
+        const val = {
+          file,
+          url: base64
+        }
+        setFileList([val])
+        form.setFieldValue('uploader', base64)
       }
     },
-    // action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
     headers: {
       authorization: 'authorization-text'
     }

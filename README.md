@@ -78,3 +78,15 @@ const theme={
    ${props=>props.theme.mixin.wrapv1}
 
 # 具体可见ambarb项目
+
+useEffect(() => {
+axios
+.get('http://localhost:8080/workbetn')
+.then((response) => {
+setCardList(response.data.list)
+console.log(response.data)
+})
+.catch((error) => {
+console.error(error)
+})
+}, [])

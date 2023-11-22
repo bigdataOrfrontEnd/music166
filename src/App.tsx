@@ -1,15 +1,19 @@
 import { Button, Form, Modal } from 'antd'
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import CardForm from './components/Form'
 
 export default function App() {
-  // axios.defaults.baseURL = 'http://localhost:8080'
-  // axios.defaults.headers.post['Content-Type'] =
-  //   'application/x-www-form-urlencoded'
-  // axios.get('/').then(function (res) {
-  //   console.log(res.data)
-  // })
+  useEffect(() => {
+    axios
+      .get('http://localhost:8080/cardInfo')
+      .then((response) => {
+        console.log(response.data)
+      })
+      .catch((error) => {
+        console.error(error)
+      })
+  }, [])
   const [form] = Form.useForm()
   const [isModalOpen, setIsModalOpen] = useState(false)
 
@@ -21,6 +25,7 @@ export default function App() {
     form.validateFields().then(async (values) => {
       console.log(values)
     })
+    form.resetFields()
   }
 
   const handleCancel = () => {
@@ -55,7 +60,6 @@ export default function App() {
         修改
       </Button>
       <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-        {/* initData={{}} form={form} */}
         <CardForm form={form} initData={data} />
       </Modal>
     </div>
